@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<div class="background">
+
+    <div class="blur purple"></div>
+    <div class="blur blue"></div>
+
+    <div class="login-card">
+
+        <div class="logo">
+            👤
+        </div>
+
+        <h1>Create Account</h1>
+
+        <p class="subtitle">
+            Create your account to continue
+        </p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <label>Username</label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter username"
+            >
+
+            <label>Email</label>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Enter email"
+            >
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="********"
+            >
+
+            <label>Confirm Password</label>
+
+            <input
+                type="password"
+                name="confirm_password"
+                placeholder="********"
+            >
+
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <p class="signup">
+            Already have an account?
+
+            <a href="{% url 'login_page' %}">
+    Login
+</a>
+
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
