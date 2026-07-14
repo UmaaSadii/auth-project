@@ -52,6 +52,19 @@ def signup_page(request):
     return render(request, "accounts/signup.html")
 
 
-# ---------- Dashboard ----------
+from documents.models import Document
+
 def dashboard(request):
-    return render(request, "accounts/dashboard.html")
+
+    documents = Document.objects.all().order_by("-created_at")
+
+    print("Total Documents:", documents.count())
+    print(documents)
+
+    return render(
+        request,
+        "accounts/dashboard.html",
+        {
+            "documents": documents
+        }
+    )

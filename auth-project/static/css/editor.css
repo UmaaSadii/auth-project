@@ -1,0 +1,191 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,sans-serif;
+}
+
+body{
+    background:#09090f;
+    color:white;
+    min-height:100vh;
+}
+
+.container{
+    width:95%;
+    max-width:1400px;
+    margin:30px auto;
+}
+
+/* ================= Header ================= */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.header h1{
+    font-size:32px;
+    font-weight:700;
+}
+
+.header-buttons{
+    display:flex;
+    gap:15px;
+}
+
+.dashboard-btn,
+.save-btn{
+    padding:12px 25px;
+    border:none;
+    border-radius:10px;
+    text-decoration:none;
+    color:white;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    background:linear-gradient(135deg,#7C3AED,#A855F7);
+    transition:.3s;
+    box-shadow:0 10px 25px rgba(124,58,237,.35);
+}
+
+.dashboard-btn:hover,
+.save-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 15px 35px rgba(124,58,237,.45);
+}
+
+/* ================= Title ================= */
+
+.title{
+    width:100%;
+    padding:16px;
+    font-size:20px;
+    margin-bottom:20px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:#161823;
+    color:white;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.title:focus{
+    border-color:#8B5CF6;
+}
+
+/* ================= Toolbar ================= */
+
+.toolbar{
+
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+
+    padding:18px;
+
+    margin-bottom:20px;
+
+    background:#161823;
+
+    border-radius:15px;
+
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.toolbar button{
+
+    min-width:50px;
+
+    padding:10px 14px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#252836;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.toolbar button:hover{
+
+    background:#7C3AED;
+
+    transform:translateY(-2px);
+}
+
+/* ================= Editor ================= */
+
+.editor{
+
+    min-height:650px;
+
+    background:white;
+
+    color:#222;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    outline:none;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
+
+    overflow:auto;
+}
+
+.editor:focus{
+
+    border:2px solid #8B5CF6;
+}
+
+/* ================= Scrollbar ================= */
+
+.editor::-webkit-scrollbar{
+
+    width:8px;
+}
+
+.editor::-webkit-scrollbar-thumb{
+
+    background:#7C3AED;
+
+    border-radius:10px;
+}
+
+/* ================= Responsive ================= */
+
+@media(max-width:900px){
+
+.header{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:20px;
+}
+
+.toolbar{
+
+    justify-content:center;
+}
+
+.editor{
+
+    min-height:500px;
+}
+
+}

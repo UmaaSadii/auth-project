@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,30 +9,123 @@
 
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 </head>
+
 <body>
 
 <div class="container">
 
-    <div class="card">
+    <!-- Header -->
 
-        <div class="icon">
-            ✓
+    <div class="header">
+
+        <div>
+
+            <h1>📄 Document Management System</h1>
+
+            <p>
+                Welcome back! Manage your documents easily.
+            </p>
+
         </div>
 
-        <h1>Login Successful!</h1>
-
-        <p>
-            Welcome back 👋 <br>
-            You have successfully logged into your account.
-        </p>
-
-        <a href="/login/" class="btn">
-            Back to Login
+        <a href="{% url 'editor' %}" class="new-btn">
+            + New Document
         </a>
+
+    </div>
+
+
+    <!-- Documents -->
+
+    <div class="documents">
+
+        <h2>My Documents</h2>
+
+        {% if documents %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Title</th>
+
+                    <th>Created</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for document in documents %}
+
+                <tr>
+
+                    <td>
+
+                        {{ document.title }}
+
+                    </td>
+
+                    <td>
+
+                        {{ document.created_at|date:"d M Y" }}
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="{% url 'edit_document' document.id %}"
+                            class="edit-btn">
+
+                            Edit
+
+                        </a>
+
+                        <a
+                            href="{% url 'delete_document' document.id %}"
+                            class="delete-btn"
+                            onclick="return confirm('Delete this document?')">
+
+                            Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <div class="empty">
+
+            <h3>No Documents Found</h3>
+
+            <p>
+
+                Click the button above to create your first document.
+
+            </p>
+
+        </div>
+
+        {% endif %}
 
     </div>
 
 </div>
 
 </body>
+
 </html>

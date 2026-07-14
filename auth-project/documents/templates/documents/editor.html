@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Editor</title>
+
+    <link rel="stylesheet" href="{% static 'css/editor.css' %}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+
+    <div class="header">
+
+        <h1>📄 Document Editor</h1>
+
+        <div class="header-buttons">
+
+            <a href="{% url 'dashboard' %}" class="dashboard-btn">
+                Dashboard
+            </a>
+
+            <button type="submit" form="documentForm" class="save-btn">
+                💾 Save
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Form -->
+
+    <form method="POST" action="{% url 'save_document' %}" id="documentForm">
+
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="title"
+            class="title"
+            placeholder="Enter document title..."
+            required
+        >
+
+        <!-- Toolbar -->
+
+        <div class="toolbar">
+
+            <button type="button" onclick="boldText()"><b>B</b></button>
+
+            <button type="button" onclick="italicText()"><i>I</i></button>
+
+            <button type="button" onclick="underlineText()"><u>U</u></button>
+
+            <button type="button" onclick="heading1()">H1</button>
+
+            <button type="button" onclick="heading2()">H2</button>
+
+            <button type="button" onclick="alignLeft()">⬅</button>
+
+            <button type="button" onclick="alignCenter()">⬌</button>
+
+            <button type="button" onclick="alignRight()">➡</button>
+
+            <button type="button" onclick="bulletList()">• List</button>
+
+            <button type="button" onclick="numberList()">1. List</button>
+
+            <button type="button" onclick="undoAction()">↶ Undo</button>
+
+            <button type="button" onclick="redoAction()">↷ Redo</button>
+
+        </div>
+
+        <!-- Editable Area -->
+
+        <div
+            id="editor"
+            class="editor"
+            contenteditable="true">
+
+            Start typing your document here...
+
+        </div>
+
+        <!-- Hidden Input -->
+
+        <input
+            type="hidden"
+            name="content"
+            id="content">
+
+    </form>
+
+</div>
+
+<script>
+
+document.getElementById("documentForm").addEventListener("submit", function(){
+
+    document.getElementById("content").value =
+    document.getElementById("editor").innerHTML;
+
+});
+
+</script>
+
+<script src="{% static 'js/editor.js' %}"></script>
+
+</body>
+
+</html>
