@@ -5,113 +5,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document Editor</title>
+    <title>{{ document.title }}</title>
 
-    <link rel="stylesheet" href="{% static 'css/editor.css' %}">
+    <script src="http://localhost/web-apps/apps/api/documents/api.js"></script>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #editor {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
+    <div id="editor"></div>
 
-    <!-- Header -->
+    <script>
+        console.log(document.getElementById("editor"));
+        console.log(typeof DocsAPI);
 
-    <div class="header">
+        var docEditor = new DocsAPI.DocEditor("editor", {
 
-        <h1>📄 Document Editor</h1>
+            documentType: "word",
 
-        <div class="header-buttons">
+            type: "desktop",
 
-            <a href="{% url 'dashboard' %}" class="dashboard-btn">
-                Dashboard
-            </a>
+            document: {
+                title: "{{ document.title }}",
+                url: "http://host.docker.internal:8000{{ document.file.url }}",
+                fileType: "docx",
+                key: "{{ document.id }}"
+            },
 
-            <button type="submit" form="documentForm" class="save-btn">
-                💾 Save
-            </button>
+            editorConfig: {
+                mode: "edit",
+                lang: "en",
+                callbackUrl: "http://host.docker.internal:8000/callback/{{ document.id }}/"
+            }
 
-        </div>
-
-    </div>
-
-    <!-- Form -->
-
-    <form method="POST" action="{% url 'save_document' %}" id="documentForm">
-
-        {% csrf_token %}
-
-        <input
-            type="text"
-            name="title"
-            class="title"
-            placeholder="Enter document title..."
-            required
-        >
-
-        <!-- Toolbar -->
-
-        <div class="toolbar">
-
-            <button type="button" onclick="boldText()"><b>B</b></button>
-
-            <button type="button" onclick="italicText()"><i>I</i></button>
-
-            <button type="button" onclick="underlineText()"><u>U</u></button>
-
-            <button type="button" onclick="heading1()">H1</button>
-
-            <button type="button" onclick="heading2()">H2</button>
-
-            <button type="button" onclick="alignLeft()">⬅</button>
-
-            <button type="button" onclick="alignCenter()">⬌</button>
-
-            <button type="button" onclick="alignRight()">➡</button>
-
-            <button type="button" onclick="bulletList()">• List</button>
-
-            <button type="button" onclick="numberList()">1. List</button>
-
-            <button type="button" onclick="undoAction()">↶ Undo</button>
-
-            <button type="button" onclick="redoAction()">↷ Redo</button>
-
-        </div>
-
-        <!-- Editable Area -->
-
-        <div
-            id="editor"
-            class="editor"
-            contenteditable="true">
-
-            Start typing your document here...
-
-        </div>
-
-        <!-- Hidden Input -->
-
-        <input
-            type="hidden"
-            name="content"
-            id="content">
-
-    </form>
-
-</div>
-
-<script>
-
-document.getElementById("documentForm").addEventListener("submit", function(){
-
-    document.getElementById("content").value =
-    document.getElementById("editor").innerHTML;
-
-});
-
-</script>
-
-<script src="{% static 'js/editor.js' %}"></script>
+        });
+    </script>
 
 </body>
 

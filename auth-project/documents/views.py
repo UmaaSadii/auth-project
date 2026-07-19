@@ -1,7 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.http import JsonResponse
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 from .models import Document
+from docx import Document as DocxDocument
+import os
+import shutil
+import json
 
 
 # =========================
@@ -70,46 +77,44 @@ def dashboard(request):
 
 def editor(request):
 
-    return render(request, "documents/editor.html")
-
-
-# =========================
-# Save Document
-# =========================
-
-def save_document(request):
-
     if request.method == "POST":
 
         title = request.POST.get("title")
-        content = request.POST.get("content")
 
-        Document.objects.create(
+        if not title:
+            title = "New Document"
+
+        filename = title.replace(" ", "_") + ".docx"
+
+        folder = os.path.join(settings.MEDIA_ROOT, "documents")
+        os.makedirs(folder, exist_ok=True)
+
+        filepath = os.path.join(folder, filename)
+
+        # Blank DOCX create
+        doc = DocxDocument()
+        doc.save(filepath)
+        print("File Path:", filepath)
+        print("File Exists:", os.path.exists(filepath))
+
+        document = Document.objects.create(
             title=title,
-            content=content
+            file="documents/" + filename
         )
+        print("Database File:", document.file)
 
-        return redirect("dashboard")
+        return redirect("edit_document", id=document.id)
 
-    return redirect("editor")
+    return render(request, "documents/new_document.html")
 
 
 # =========================
-# Edit Document
+# Open Editor
 # =========================
 
 def edit_document(request, id):
 
     document = get_object_or_404(Document, id=id)
-
-    if request.method == "POST":
-
-        document.title = request.POST.get("title")
-        document.content = request.POST.get("content")
-
-        document.save()
-
-        return redirect("dashboard")
 
     return render(
         request,
@@ -121,12 +126,38 @@ def edit_document(request, id):
 
 
 # =========================
-# Delete Document
+# ONLYOFFICE Callback
+# =========================
+
+
+
+@csrf_exempt
+def callback(request, id):
+
+    if request.method == "POST":
+
+        body = json.loads(request.body)
+
+        print(body)
+
+        return JsonResponse({"error": 0})
+
+    return JsonResponse({"error": 0})
+
+# =========================
+# Delete
 # =========================
 
 def delete_document(request, id):
 
     document = get_object_or_404(Document, id=id)
+
+    if document.file:
+
+        try:
+            os.remove(document.file.path)
+        except:
+            pass
 
     document.delete()
 

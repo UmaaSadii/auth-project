@@ -2,75 +2,85 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Segoe UI, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-    background:#09090f;
-    color:white;
-    min-height:100vh;
+    background:#f5f7fb;
 }
 
 .container{
     width:90%;
-    max-width:1300px;
+    max-width:1200px;
     margin:40px auto;
 }
-
-/* Header */
 
 .header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:35px;
+    background:#ffffff;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    margin-bottom:30px;
 }
 
 .header h1{
-    font-size:34px;
-    font-weight:700;
-    margin-bottom:8px;
+    color:#2d3436;
+    margin-bottom:5px;
 }
 
 .header p{
-    color:#9ca3af;
+    color:#777;
+}
+
+.header form{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.header input{
+    padding:10px 15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    width:220px;
+    outline:none;
     font-size:15px;
 }
 
-/* New Button */
+.header input:focus{
+    border-color:#2563eb;
+}
 
 .new-btn{
-    padding:14px 28px;
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
     text-decoration:none;
-    color:white;
-    font-weight:600;
-    border-radius:12px;
-    background:linear-gradient(135deg,#7C3AED,#A855F7);
+    font-weight:bold;
     transition:.3s;
-    box-shadow:0 10px 25px rgba(124,58,237,.35);
 }
 
 .new-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 15px 35px rgba(124,58,237,.5);
+    background:#1d4ed8;
 }
 
-/* Documents Card */
-
 .documents{
-    background:rgba(18,20,30,.85);
-    border:1px solid rgba(255,255,255,.08);
-    backdrop-filter:blur(18px);
-    border-radius:20px;
-    padding:30px;
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
 }
 
 .documents h2{
     margin-bottom:20px;
-    font-size:26px;
+    color:#333;
 }
-
-/* Table */
 
 table{
     width:100%;
@@ -78,88 +88,80 @@ table{
 }
 
 thead{
-    background:#161823;
+    background:#2563eb;
+    color:#fff;
 }
 
-th{
-    padding:18px;
-    text-align:left;
-    font-size:15px;
-    color:#d1d5db;
-}
-
+th,
 td{
-    padding:18px;
-    border-top:1px solid rgba(255,255,255,.08);
-}
-
-tbody tr{
-    transition:.3s;
+    padding:15px;
+    text-align:left;
+    border-bottom:1px solid #eee;
 }
 
 tbody tr:hover{
-    background:#1d2130;
-}
-
-/* Action Buttons */
-
-.edit-btn,
-.delete-btn{
-    text-decoration:none;
-    color:white;
-    padding:8px 16px;
-    border-radius:8px;
-    margin-right:10px;
-    font-size:14px;
-    transition:.3s;
+    background:#f8f9fa;
 }
 
 .edit-btn{
-    background:#2563eb;
+    background:#16a34a;
+    color:#fff;
+    text-decoration:none;
+    padding:8px 14px;
+    border-radius:6px;
+    margin-right:8px;
+    transition:.3s;
 }
 
 .edit-btn:hover{
-    background:#1d4ed8;
+    background:#15803d;
 }
 
 .delete-btn{
     background:#dc2626;
+    color:#fff;
+    text-decoration:none;
+    padding:8px 14px;
+    border-radius:6px;
+    transition:.3s;
 }
 
 .delete-btn:hover{
     background:#b91c1c;
 }
 
-/* Empty State */
-
 .empty{
     text-align:center;
-    padding:80px 20px;
+    padding:60px 20px;
+    color:#777;
 }
 
 .empty h3{
-    font-size:28px;
-    margin-bottom:15px;
+    margin-bottom:10px;
+    color:#333;
 }
 
-.empty p{
-    color:#9ca3af;
-    font-size:16px;
-}
+@media(max-width:768px){
 
-/* Responsive */
+    .header{
+        flex-direction:column;
+        gap:20px;
+        align-items:flex-start;
+    }
 
-@media(max-width:900px){
+    .header form{
+        width:100%;
+        flex-direction:column;
+        align-items:stretch;
+    }
 
-.header{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:20px;
-}
+    .header input{
+        width:100%;
+    }
 
-table{
-    display:block;
-    overflow-x:auto;
-}
+    table{
+        display:block;
+        overflow-x:auto;
+    }
 
 }

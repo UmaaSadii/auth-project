@@ -3,11 +3,15 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Dashboard</title>
 
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
 </head>
 
 <body>
@@ -22,18 +26,37 @@
 
             <h1>📄 Document Management System</h1>
 
-            <p>
-                Welcome back! Manage your documents easily.
-            </p>
+            <p>Welcome back! Manage your documents easily.</p>
 
         </div>
 
-        <a href="{% url 'editor' %}" class="new-btn">
-            + New Document
-        </a>
+        <!-- New Document -->
+
+        <form action="{% url 'editor' %}" method="POST">
+
+            {% csrf_token %}
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Document Title"
+                required
+                style="
+                    padding:10px;
+                    border-radius:6px;
+                    border:1px solid #ccc;
+                    margin-right:10px;
+                ">
+
+            <button class="new-btn" type="submit">
+
+                + New Document
+
+            </button>
+
+        </form>
 
     </div>
-
 
     <!-- Documents -->
 
@@ -65,17 +88,9 @@
 
                 <tr>
 
-                    <td>
+                    <td>{{ document.title }}</td>
 
-                        {{ document.title }}
-
-                    </td>
-
-                    <td>
-
-                        {{ document.created_at|date:"d M Y" }}
-
-                    </td>
+                    <td>{{ document.created_at|date:"d M Y H:i" }}</td>
 
                     <td>
 
@@ -83,7 +98,7 @@
                             href="{% url 'edit_document' document.id %}"
                             class="edit-btn">
 
-                            Edit
+                            Open
 
                         </a>
 
@@ -112,11 +127,7 @@
 
             <h3>No Documents Found</h3>
 
-            <p>
-
-                Click the button above to create your first document.
-
-            </p>
+            <p>Create your first Word document.</p>
 
         </div>
 

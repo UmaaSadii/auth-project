@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-&k$j%nx7(_tn+i!r*s*j$9=@%m2npc)j963zneo1d6@z26@kx6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "host.docker.internal",
+]
 
 
 # Application definition
@@ -150,3 +154,6 @@ TIME_ZONE = 'Asia/Karachi'
 USE_I18N = True
 
 USE_TZ = True
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
